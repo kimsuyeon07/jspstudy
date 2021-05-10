@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/kimsuyeon07/jspstudy_05.git"/>
+		<item value="https://github.com/kimsuyeon07/jspstudy.git"/>
+		<item value="ksy724%40naver.com@github.com:kimsuyeon07/jspstudy.git"/>
+		<item value="kimsuyeon07@github.com:kimsuyeon07/jspstudy.git"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="bitbucket.org"/>
+		<item value="git.eclipse.org"/>
+		<item value="github.com"/>
+	</list>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item key="HORIZONTAL_SASH_FORM_WEIGHT" value="200,200"/>
+		<item key="STAGING_SASH_FORM_WEIGHT" value="200,200"/>
+		<item key="sortItemState" value="true"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="D:\SPRING0303\jspstudy\jspstudy\.git">
+			<item value="empty"/>
+		</list>
+	</section>
+</section>
