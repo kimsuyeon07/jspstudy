@@ -36,6 +36,7 @@
 	bw.write("작성자 : " + writer + "\n");
 	bw.write("제목 : " + title + "\n");
 	bw.write(contents);
+	bw.flush();
 	
 	if (bw != null) {
 		bw.close();
