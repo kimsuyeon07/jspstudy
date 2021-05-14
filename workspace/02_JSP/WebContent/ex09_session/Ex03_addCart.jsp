@@ -45,10 +45,9 @@
 <script>
 	alert('<%=dto.getProduct()%> 제품을 장바구니에 추가했습니다. '); 
 	if (confirm('장바구니로 가려면 "확인", 계속 쇼핑하려면 "취소"를 누르세요.')) {
-		loc
-		localhost.href = '/02_JSP/ex09_session/Ex03_cart.jsp';
+		location.href = '/02_JSP/ex09_session/Ex03_cart.jsp';
 	} else {
-		localhost.href = '/02_JSP/ex09_session/Ex03_mall.jsp';
+		location.href = '/02_JSP/ex09_session/Ex03_mall.jsp';
 	}
 </script>
 
