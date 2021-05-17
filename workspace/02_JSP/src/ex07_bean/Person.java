@@ -1,4 +1,4 @@
-package ex07;
+package ex07_bean;
 
 /* 
  * 자바 빈(Bean)

@@ -16,7 +16,7 @@
 		↓↓
 		(==)
 	--%>
-	<jsp:useBean id="p" class="ex07.Person"></jsp:useBean>
+	<jsp:useBean id="p" class="ex07_bean.Person"></jsp:useBean>
 	
 	<%--
 		setter로 데이터 주입하기
