@@ -21,7 +21,7 @@
 				
 			})
 		</script>
-	</head>
+	</head> 
 	<body>
 	
 		<input type="button" value="현재 날짜를 알려다오." id="btn1">

@@ -33,12 +33,18 @@ public class HomeController extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
+		// request, response 기본 처리
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		
 		// ** 요청을 확인하는 과정 **
 		String requestURI = request.getRequestURI(); /***    /06_MVC/date.do    ***/
 		// response.getWriter().write(requestURI);
 		String[] arr = requestURI.split("/");  /*** arr : {"", "06_MVC","date.do"}  ***/ // split("요소") : 배열화
 		String command = arr[arr.length - 1];  /***  command : data.do   ***/
 		// response.getWriter().write(command);
+		
 		
 		String path = null; // switch문 밖에서도 'path'를 사용하기 위해서.
 		
@@ -54,6 +60,7 @@ public class HomeController extends HttpServlet {
 			path = service.execute(request, response);
 			break;
 		}
+		
 		
 		// MODEL의 호출 결과(응답 VIEW)에 따른 페이지 이동
 		request.getRequestDispatcher(path).forward(request, response);
