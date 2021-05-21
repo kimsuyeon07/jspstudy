@@ -15,6 +15,11 @@
 <%-- core 라이브러리의 지시어 작성 --%>
 <!-- "http://java.sun.com/jsp/jstl/core" : 1.2버전으로  -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%-- 
+	순서 변경 (X)
+	[O] uri="http://java.sun.com/jsp/jstl/core" prefix="c"
+	[X] prefix="c" uri="http://java.sun.com/jsp/jstl/core"   
+--%>
 
 <!DOCTYPE html>
 <html>

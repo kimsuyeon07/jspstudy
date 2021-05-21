@@ -1,25 +1,25 @@
-package quiz;
+package controller;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Getlotto;
+
 /**
- * Servlet implementation class Quiz05_1
+ * Servlet implementation class GetLotto
  */
-@WebServlet("/Quiz05_1")
-public class Quiz05_1 extends HttpServlet {
+@WebServlet("/LottoController")
+public class LottoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Quiz05_1() {
+    public LottoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,19 +29,11 @@ public class Quiz05_1 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 리다이렉트는 기존 request으 ㅣ정보를 전달하지 않는다.
-		// 따라서, 우리가 직접 다시 전달한다.
+		/* 로또 번호 6개를 알려다오. */
+		Getlotto lotto = new Getlotto();
+		String path = lotto.excute(request);
 		
-		request.setCharacterEncoding("utf-8");
-		
-		String name = request.getParameter("name");
-		String age = request.getParameter("age");
-		
-		System.out.println("이름 : " + name + ", 나이 : " + age);
-		
-		
-		// 인코딩 : URLEncoder.encode("문자열", "utf-8")
-		response.sendRedirect("/01_SERVLET/Quiz05_2?name=" + URLEncoder.encode(name, "utf-8") + "&age=" + age);  // 새로운 파라미터가 생성된 것
+		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
 
