@@ -35,14 +35,22 @@
 <fullyQualifiedTypeName name="controller.GugudanController"/>
 <fullyQualifiedTypeName name="model.GugudanService"/>
 <fullyQualifiedTypeName name="model.BeerService"/>
-<fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="model.MealCommand"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="model.DateService"/>
 <fullyQualifiedTypeName name="model.TimeService"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="model.HomeService"/>
+<fullyQualifiedTypeName name="model.ShapeCommand"/>
+<fullyQualifiedTypeName name="model.RectangleCommand"/>
+<fullyQualifiedTypeName name="model.TriangleCpmmand"/>
+<fullyQualifiedTypeName name="model.CircleCommand"/>
+<fullyQualifiedTypeName name="common.ModelAndView"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
+<fullyQualifiedTypeName name="model.AverageCommand"/>
+<fullyQualifiedTypeName name="controller.ModelMapper"/>
+<fullyQualifiedTypeName name="command.ModelAndView"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
 </qualifiedTypeNameHistroy>
