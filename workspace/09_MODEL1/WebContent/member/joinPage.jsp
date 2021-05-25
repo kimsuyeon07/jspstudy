@@ -59,6 +59,12 @@
 			}); // f.on('submit', ...) (END)
 			
 			
+			// 가입취소
+			$('#cancel_btn').on('click', function(){
+				location.href="../index.jsp";  // 상대경로
+				// location.href="/09_MODEL1/index.jsp"; > 절대경로 (경로 위치 동일)
+			})
+			
 			
 			
 			
