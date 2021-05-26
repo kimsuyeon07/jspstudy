@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -40,6 +41,11 @@ public class DataLab {
         try {
         	obj = (JSONObject)parser.parse(responseBody);
         	String startDate = obj.get("startDate").toString();
+        	JSONArray category = (JSONArray)obj.get("category");
+        	for (int i = 0; i<category.size(); i++) {
+        		JSONObject obj2 = (JSONObject)category.get(i);
+        		String nameC = obj2.get("name").toString();
+        	}
         } catch (Exception e) {
         	e.printStackTrace();
         }

@@ -33,9 +33,9 @@
 	})
 	
 	
-	$('#return_btn').on('click',function(){
-		location.href = '../index.jsp';
-	})
+	/* $('#return_btn').on('click',function(){
+		location.href = 'myPage.jsp';
+	}) */
 	
 </script>
 <style>
@@ -61,7 +61,7 @@
 			<label for="pw1">비밀번호 확인</label> <input type="password" id="pw1">				<br><br>
 			
 			<button>비밀번호 변경하기</button>
-			<input type="button" value="되돌아가기" id="return_btn">
+			<input type="button" value="되돌아가기" id="return_btn" onclick="location.href = 'myPage.jsp'">
 		</form>
 	</div>
 	
