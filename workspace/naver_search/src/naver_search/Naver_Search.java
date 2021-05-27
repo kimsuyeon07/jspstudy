@@ -99,16 +99,20 @@ public class Naver_Search {
         }
 	}
     
+
     private static void parseDate(String responseBody) {
     	String title;
     	JSONParser parser = new JSONParser();
     	JSONObject obj = null;
     	try {
     		obj = (JSONObject)parser.parse(responseBody);
-    		JSONArray arr = (JSONArray)obj.get("items");
-    		for (int i = 0 ; i < arr.size(); i++) {
-    			
+    		JSONArray objArr = (JSONArray)obj.get("items");
+    		for (int i = 0 ; i<objArr.size(); i++) {
+    			JSONObject obj2 = (JSONObject)objArr.get(i);
+    			title = obj2.get("title").toString();
     		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
     	}
     }
     

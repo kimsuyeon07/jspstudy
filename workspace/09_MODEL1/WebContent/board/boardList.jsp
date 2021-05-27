@@ -46,6 +46,14 @@
 		td:nth-of-type(3) { width: 150px; }
 		td:nth-of-type(4) { width: 70px; }
 		td:nth-of-type(5) { width: 120px; }
+		
+		.pageing {
+			text-align: center;
+		}
+		.now_page {
+			color: blue;
+		}
+		
 	</style>
 </head>
 <body>
@@ -53,7 +61,7 @@
 	<div class="container">
 		<a href="insertPage.jsp">새 글 작성하기</a>
 		<a href="../index.jsp">홈으로 가기</a>
-		<br><hr><br>
+		<br> <hr> <br>
 		
 		<%
 			// session에 올라간 boardDTO 제거
@@ -93,17 +101,33 @@
 			**************************************************/
 			// 시작 페이지 번호 = ((현재피이지 번호 - 1) / 블록당페이지 수) * 블록당페이지수 + 1);
 			//(현재페이지 - 1) * 페이지당레코드수 + 1
-			int beginPage = ((pageVO.getPage() -1) * pageVO.getPagePerBlock()) * pageVO.getPagePerBlock() + 1;
 			int beginRecord = (pageVO.getPage() -1) * pageVO.getRecordPerPage() + 1;
 			pageVO.setBeginRecord(beginRecord);
 			// 시작게시글번호 + 페이지당레코드수 - 1
 			// 단, 종료페이지번호와 전체페이지수 중 작은 값을 종료페이지번호로 사용한다.
+			int endRecord = beginRecord + pageVO.getRecordPerPage() - 1;
+			endRecord = (endRecord < totalRecord) ? endRecord : totalRecord;
+			pageVO.setEndRecord(endRecord);
+			
+			/* 6. 블록당 시작페이지, 종료페이지 구하기 */
+			/****************** 예시 ***********************
+				1. 전체 12개 페이지가 있다.
+				2. 한 블록에 3개의 페이지를 표시한다.
+				page = 1~5,   beginPage = 1,  endPage = 5
+				page = 6~10,  beginPage = 6,  endPage = 10
+				page = 11~15, beginPage = 11, endPage = 12
+			*************************************************/
+			// 시작페이지번호 = (((현재페이지번호 - 1) / 블록당페이지수) * 블록당페이지수 + 1)
+			int beginPage = ( (pageVO.getPage() -1) / pageVO.getPagePerBlock() ) * pageVO.getPagePerBlock() + 1;
+			pageVO.setBeginPage(beginPage);
+			// 종료페이지번호 = 시작페이지번호 + 블록당페이지수 - 1
+			// 단, 종료페이지번호와 전체페이지수 중 작은 값을 종료페이지번호로 사용한다.
 			int endPage = beginPage + pageVO.getPagePerBlock() - 1;
 			endPage = (endPage < pageVO.getTotalPage()) ? endPage : pageVO.getTotalPage();
 			pageVO.setEndPage(endPage);
-			
+			pageContext.setAttribute("pageVo", pageVO);
 			/* Page 처리 끝 */
-
+			
 			
 			// beginRecord ~ endRecord 사이의 목록만 가져오기
 			List<BoardDTO> list = BoardDAO.getInstance().selectAll(pageVO);
@@ -136,6 +160,39 @@
 					</tr>
 				</c:forEach>
 			</tbody>
+			
+			<tfoot class="paging">
+				<tr>
+					<td colspan="5">
+						<%-- 1. 이전 블록으로 이동 : 1블록은 이전 블록이 없다.--%>
+						<!-- beginPage 값 사용 -->
+						<c:if test="${pageVO.beginPage < pageVO.pagePerBlock}">
+							이전 &nbsp;  <%-- 1블록 --%>
+						</c:if>
+						<c:if test="${pageVO.beginPage >= pageVO.pagePerBlock}">
+							<a href="/09_MODEL1/board/boardList.jsp?page=${pageVO.beginPage - 1}">이전&nbsp;</a>
+						</c:if>
+						
+						<%-- 2. 페이지 번호 : 현재페이지는 링크가 없다. --%>
+						<c:forEach var="page" begin="${pageVO.beginPage}" end="${pageVO.endPage}" step="1">
+							<c:if test="${pageVO.page == page }"> <%-- 현재 페이지 --%>
+								<span class="now_page">${page}&nbsp;</span>
+							</c:if>
+							<c:if test="${pageVO.page != page }"> <%-- 다른 페이지 --%>
+								<a href="/09_MODEL1/board/boardList.jsp?page=${page}">${page}&nbsp;</a>
+							</c:if>
+						</c:forEach>
+						
+						<%-- 3. 다음 블록으로 이동 --%>
+						<c:if test="${pageVO.endPage != pageVO.totalPage}">
+							<a href="/09_MODEL1/board/boardList.jsp?page=${pageVO.endPage + 1}">다음</a>
+						</c:if>
+						<c:if test="${pageVO.endPage == pageVO.totalPage}">
+							다음 <%-- 마지막 블록 --%>
+						</c:if>
+					</td>
+				</tr>
+			</tfoot>
 			
 		</table>
 		

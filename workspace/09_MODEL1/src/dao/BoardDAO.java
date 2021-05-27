@@ -67,12 +67,12 @@ public class BoardDAO {
  		-- a : 정렬한 테이블 (정렬만 진행)
 			 * ***************************************************************/
 			//sql="SELECT IDX, AUTHOR, TITLE, CONTENT, HIT, POSTDATE FROM BOARD";
-			sql = " SELECT b.IDX, b.AUTHOR, b.TITLE, b.CONTENT, b.HIT, b.POSTDATE"
-				  + " FROM (SELECT ROWNUM AS rn, a.IDX, a.AUTHOR, a.TITLE, a.CONTENT, a.HIT, a.POSTDATE"
-				  + "	 	  FROM (SELECT IDX, AUTHOR, TITLE, CONTENT, HIT, POSTDATE"
-				  + "		 		  FROM BOARD"
-				  + "			 	 ORDER BY POSTDATE DESC) a ) b"
-				  + "WHERE b.rn BETWEEN ? AND ?" ;
+			sql = "SELECT b.IDX, b.AUTHOR, b.TITLE, b.CONTENT, b.HIT, b.POSTDATE" +
+					  "  FROM (SELECT ROWNUM AS rn, a.IDX, a.AUTHOR, a.TITLE, a.CONTENT, a.HIT, a.POSTDATE" +
+					  "          FROM (SELECT IDX, AUTHOR, TITLE, CONTENT, HIT, POSTDATE" +
+					  "                  FROM BOARD" +
+					  "                 ORDER BY POSTDATE DESC) a ) b" +
+					  " WHERE b.rn BETWEEN ? AND ?";
 					
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, pageVO.getBeginRecord());
@@ -180,7 +180,7 @@ public class BoardDAO {
 	public int getTotalRecord() {
 		int totalRecord = 0;
 		try {
-			sql="SELECT COUNT(IDX) AS FROM BOARD";
+			sql="SELECT COUNT(IDX) AS TOTAL_RECORD FROM BOARD";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if (rs.next()) {
