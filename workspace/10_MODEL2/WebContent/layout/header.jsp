@@ -41,6 +41,11 @@
 						<li><a href="#">마이페이지</a></li>
 					</c:if>
 				</ul>
+				<p class="welcome_T">
+					<c:if test="${loginDTO != null}">
+						<b>${loginDTO.name}</b>님, 반갑습니다 :)
+					</c:if>
+				</p>
 			</nav>
 		</header>
 		

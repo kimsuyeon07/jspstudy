@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
-<fullyQualifiedTypeName name="controller.GugudanController"/>
-<fullyQualifiedTypeName name="model.GugudanService"/>
-<fullyQualifiedTypeName name="model.BeerService"/>
-<fullyQualifiedTypeName name="model.MealCommand"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="model.DateService"/>
-<fullyQualifiedTypeName name="model.TimeService"/>
-<fullyQualifiedTypeName name="model.HomeService"/>
-<fullyQualifiedTypeName name="model.ShapeCommand"/>
-<fullyQualifiedTypeName name="model.RectangleCommand"/>
 <fullyQualifiedTypeName name="model.TriangleCpmmand"/>
 <fullyQualifiedTypeName name="model.CircleCommand"/>
 <fullyQualifiedTypeName name="model.AverageCommand"/>
@@ -27,17 +16,13 @@
 <fullyQualifiedTypeName name="dto.BoardDTO"/>
 <fullyQualifiedTypeName name="db.util.DBConnector"/>
 <fullyQualifiedTypeName name="dto.PageVO"/>
-<fullyQualifiedTypeName name="dto.MemberDTO"/>
 <fullyQualifiedTypeName name="dto.MemberLogDTO"/>
-<fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="javax.sql.DataSource"/>
 <fullyQualifiedTypeName name="javax.naming.Context"/>
 <fullyQualifiedTypeName name="javax.naming.InitialContext"/>
 <fullyQualifiedTypeName name="javax.naming.NamingException"/>
-<fullyQualifiedTypeName name="dao.MemberDAO"/>
 <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
-<fullyQualifiedTypeName name="common.ModelAndView"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
 <fullyQualifiedTypeName name="org.json.simple.parser.JSONParser"/>
@@ -52,7 +37,6 @@
 <fullyQualifiedTypeName name="java.io.Writer"/>
 <fullyQualifiedTypeName name="java.io.FileInputStream"/>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
-<fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="java.time.LocalTime"/>
@@ -60,4 +44,20 @@
 <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="command.member.MemberCommand"/>
+<fullyQualifiedTypeName name="controller.CommandMapper"/>
+<fullyQualifiedTypeName name="command.member.loginPageCommand"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="oracle.jdbc.driver.DBConversion"/>
+<fullyQualifiedTypeName name="command.member.LoginCommand"/>
+<fullyQualifiedTypeName name="command.member.LogoutCommand"/>
+<fullyQualifiedTypeName name="javax.websocket.Session"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="common.ModelAndView"/>
+<fullyQualifiedTypeName name="command.member.JoinPageCommand"/>
+<fullyQualifiedTypeName name="command.member.JoinCommand"/>
+<fullyQualifiedTypeName name="dto.MemberDTO"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="dao.MemberDAO"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
 </qualifiedTypeNameHistroy>

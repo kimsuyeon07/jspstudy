@@ -13,12 +13,12 @@ public class MemberDTO {
 
 	// constructor
 	public MemberDTO(){}
-	public MemberDTO(String id, String name, String email, Date regdate) {
+	public MemberDTO(String id, String pw, String name, String email) {
 		super();
 		this.id = id;
+		this.pw = pw;
 		this.name = name;
 		this.email = email;
-		this.regdate = regdate;
 	}
 	
 	

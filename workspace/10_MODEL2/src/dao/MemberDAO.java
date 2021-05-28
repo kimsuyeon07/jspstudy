@@ -121,6 +121,27 @@ public class MemberDAO {
 	}
 	
 	
+	/* 5. 회원가입 */
+	public int join(MemberDTO dto) {
+		int result= 0;
+		try {
+			con = dataSource.getConnection();
+			sql = "INSERT INTO MEMBER VALUES (MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE)";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getPw());
+			ps.setString(3, dto.getName());
+			ps.setString(4, dto.getEmail());
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+		return result;
+	}
+	
+	
 	
 	
 	

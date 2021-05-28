@@ -13,6 +13,11 @@ a {
 	width: 800px;
 	margin: 0 auto;
 }
+
+/* 네비게이션 작업 */
+nav {
+	display: flex;
+}
 nav > ul {
 list-style-type: none;	
 display: flex;
@@ -32,6 +37,12 @@ nav > ul > li > a:hover {
 	border-bottom: 2px solid red;
 	color: red;
 	}
+nav .welcome_T {
+	line-height: 40px;
+	padding: 0 20px;
+}
+
+
 .container > section {
 	padding: 20px;
 }
@@ -40,6 +51,8 @@ nav > ul > li > a:hover {
 	height: 600px;
 }
 
+
+/* Footer */
 footer {
 	font-size: 14px;
 	padding-bottom: 20px;
