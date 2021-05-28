@@ -1,6 +1,8 @@
 <%@page import="java.util.Optional"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,16 +24,26 @@
 
 	<div class="container">
 		<header>
-			<a href="#">
-				<img src="assets/images/daum.png" alt="Logo" style="width:200px;">
+			<a href="/10_MODEL2/index.do">
+				<img src="<%=request.getContextPath() %>/assets/images/daum.png" alt="Logo" style="width:200px;">
 			</a>
 			<nav>
 				<ul>
-					<li><a href="#">회원가입</a></li>
-					<li><a href="#">로그인</a></li>
-					<li><a href="#">마이페이지</a></li>
+					<%-- 로그인하지 않았을 때, 보여지는 NAV --%>
+					<c:if test="${loginDTO == null}">
+						<li><a href="/10_MODEL2/JoinPage.m">회원가입</a></li>
+						<li><a href="/10_MODEL2/loginPage.m">로그인</a></li>
+						<li><a href="#">마이페이지</a></li>
+					</c:if>
+					<%-- 로그인되어 있을 때, 보여지는 NAV --%>
+					<c:if test="${loginDTO != null}">
+						<li><a href="/10_MODEL2/logoutPage.m">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+					</c:if>
 				</ul>
 			</nav>
 		</header>
+		
+		<hr>
 		
 		<section>

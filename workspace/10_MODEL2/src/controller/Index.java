@@ -7,25 +7,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.ModelAndView;
+
 /**
- * Servlet implementation class MemberController
+ * Servlet implementation class IndexController
  */
-@WebServlet("*.m")
-public class MemberController extends HttpServlet {
+@WebServlet("/index.do")
+public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberController() {
+    public Index() {
         super();
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
