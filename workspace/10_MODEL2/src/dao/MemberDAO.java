@@ -95,7 +95,7 @@ public class MemberDAO {
 			sql = "INSERT INTO MEMBER_LOG VALUES (MEMBER_LOG_SEQ.NEXTVAL, ?, SYSDATE, NULL)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getId());
-			ps.executeUpdate();
+			ps.executeUpdate();  // 실행 하겠다!
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -104,7 +104,21 @@ public class MemberDAO {
 	}  
 	
 	
-	
+	/* 4. 로그아웃 로그 남기기 */
+	public void logoutLog(String id) {
+		try {
+			con = dataSource.getConnection();
+			sql = "UPDATE MEMBER_LOG SET LOGOUT= SYSDATE WHERE ID = ? AND LOGOUT IS NULL";
+			// MEMBER_LOG(테이블)의 로그아웃 시간을 업데이트 해준다 [ 조건: 업데이트하고자하는 테이블의 "ID" & 로그아웃기록이 없어야 한다! ]
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.executeUpdate();  // 실행 하겠다!
+		} catch (Exception e) {
+			 e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+	}
 	
 	
 	

@@ -13,36 +13,100 @@
 	$(document).ready(function(){
 		
 		const f = $('#f');
+		
 		const id = $('#id');
+		/* ▼ 아이디 체크 ▼ */
+		function idCheck() {
+			let result = false;  // 초기화 : 아이디 실패
+			if (id.val() == '') {
+				id_message.text('아이디는 필수입니다.');
+			} else {
+				id_message.text('아이디 통과.');
+				// 아이디 성공
+				result = true; 
+			}
+			return result; // submit할 때 반환값을 사용하기 위해. >> submit할 때, 반환 값이 false이면 submit을 할 수 없다.
+		}  // (END)idCheck() 
+		id.blur(function(){ // 아이디를 입력하고 빠져 나갈 때,
+			idCheck(); // 해라.
+		}) // (END)id.blur(function()	
+		/* ▲ (END)아이디 체크  ▲ */
+		
 		const pw = $('#pw');
 		const pw2 = $('#pw2');
+		/* ▼ 비밀번호 체크 ▼ */
+		function pwCheck() {
+			let result = false;
+			if (pw.val() == '') {
+				pw_message.text('비밀번호는 필수입니다.');
+			} else {
+				pw_message.text('비밀번호 통과');
+				result = true;
+			}
+			return result;
+		} // (END)pwCheck() 
+		pw.blur(function(){
+			pwCheck();
+		}) // (END)pw.blur(function()
+		/* ▲ (END)비밀번호 체크  ▲ */
+		// ↓ ↓ ↓ ↓ ↓
+		/* ▼ 비밀번호 일치 체크 ▼ */
+		function pw2Check() {
+			let result = false;
+			if(pw2.val() == '') {
+				pw2_message.text('비밀번호 확인은 필수입니다.');
+			} else if (pw.val() != pw2.val()) {
+				pw2_message.text('비밀번호가 일치하지 않습니다.');
+			} else {
+				pw2_message.text('비밀번호가 일치합니다.');
+				result = true;
+			}
+			return result;
+		} // (END)pw2Check() 
+		pw2.blur(function(){
+			pw2Check();
+		}) // (END)pw2.blur(function() 
+		/* ▲ (END)비밀번호 일치 체크  ▲ */
+		
+		
 		const name = $('#name');
+		
 		const email = $('#email');
+		/*  이메일 체크 ▼ */
+		function emailCheck() {
+			let result = false;
+			if (email.val() == '') {
+				email_message.text('이메일은 필수입니다.');
+			} else {
+				email_message.text('이메일 통과');
+				result = true;
+			}
+			return result;
+		} // (END)emailCheck() 
+		email.blur(function(){
+			emailCheck();
+		}) // (END)email.blur(function()	
+		/* ▲ (END)이메일 체크  ▲ */
 
+		/*  */
 		const id_message = $('#id_message');
 		const pw_message = $('#pw_message');
 		const pw2_message = $('#pw2_message');
 		const name_message = $('#name_message');
 		const email_message = $('#email_message');
 
-		f.submit(function(event){  // 버튼을 눌렀을 때, 수행한다.
-			if (id.val() == '') {
-				id_message.text('아이디를 입력하세요.');
-				id.focus();
-				event.preventDefault(); // submit하지 못하도록 막는다.
-				return false;
-			}
-			else if (pw_message.val() == '') {
-				// else if >> id는 입력이 되어있다고 가정
-				id_message.text('');
-				pw_message.text('비밀번호를 입력하세요.');
-				pw.focus();
+		/* (submit) 버튼을 눌렀을 때,수행한다. */
+		f.submit(function(event){  
+			if ( !idCheck() || !pwCheck() || !pw2Check() || !emailCheck() ) { // 하나라도 false가 반환되었다면,
+				alert('회원가입 정보를 확인 하세요.');
 				event.preventDefault();
 				return false;
 			}// if문 (END)
-		}) // f.sumit() (END)
+		}) 
+		// ▲ f.submit(function(event) (END) ▲
 		
-	}) // 페이지 로드 이벤트 (종료)
+	})
+	// 페이지 로드 이벤트 (종료) ▲	
 </script>
 
 <style>
@@ -97,9 +161,9 @@
 	<form method="post" id="f">
 		<%-- 아이디 --%>
 		<span class="title">아이디</span>		<br>
-		<input type="text" name="id" id="id" placeholder="ID">	<br>
-		<input type="button" value="중복확인" id="id_btn"> 		<br>
-		<span id="id_message" class="error_message"></span> 	<br>
+		<input type="text" name="id" id="id" placeholder="ID" autofocus>	<br>
+		<input type="button" value="중복확인" id="id_btn"> 					<br>
+		<span id="id_message" class="error_message"></span> 				<br>
 		
 		<%-- 비밀번호 --%>
 		<span class="title">비밀번호</span>									<br>

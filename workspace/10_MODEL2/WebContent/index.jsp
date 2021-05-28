@@ -7,6 +7,8 @@
 <jsp:include page="layout/header.jsp">
 	<jsp:param value="Welcome" name="title" />
 </jsp:include>
+		
+		<!-- index의 본문 내용 삽입 : <section>내용 -->
 		<div class="index_div">
 			<h1>홈페이지에 오신 걸 환영합니다.</h1>
 		</div>

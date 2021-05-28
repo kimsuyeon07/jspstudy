@@ -37,7 +37,7 @@
 					</c:if>
 					<%-- 로그인되어 있을 때, 보여지는 NAV --%>
 					<c:if test="${loginDTO != null}">
-						<li><a href="/10_MODEL2/logoutPage.m">로그아웃</a></li>
+						<li><a href="/10_MODEL2/logout.m">로그아웃</a></li>
 						<li><a href="#">마이페이지</a></li>
 					</c:if>
 				</ul>
