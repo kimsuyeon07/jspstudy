@@ -31,9 +31,12 @@
 	}
 	#content {
 		height: 450px;
+		padding: 15px 10px;
+		font-size: 15px;
 	}
 	#filename {
 		margin-bottom: 20px;
+		
 	}
 	
 	/* 타이틀 작업 */
@@ -53,7 +56,7 @@
 		/* 작성하기 */
 		const insert_btn = $('#insert_btn');
 		insert_btn.click(function(){
-			if(title.val() == null) {
+			if(title.val() == '') {
 				alert('제목은 필수 입니다.');
 				title.focus();
 				return;
@@ -65,7 +68,7 @@
 		/* 목록보기 */
 		const list_btn = $('#list_btn');
 		list_btn.click(function(){
-			location.href='/10_MODEL2/selectAllBoardPage.b';
+			location.href='/10_MODEL2/selectListBoardPage.b';
 		})
 		
 	})
@@ -88,6 +91,8 @@
 		<%-- 내용 : content --%>
 		<p class="title">내용</p>
 		<textarea name="content" id="content"></textarea> <br>
+		
+		<input type="hidden" name="ip" value="<%= request.getRemoteAddr()%>">
 		
 		<%-- 버튼 : button --%>
 		<input type="button" value="작성하기" id="insert_btn">

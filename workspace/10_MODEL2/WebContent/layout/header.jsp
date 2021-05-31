@@ -34,13 +34,13 @@
 						<li><a href="/10_MODEL2/JoinPage.m">회원가입</a></li>
 						<li><a href="/10_MODEL2/loginPage.m">로그인</a></li>
 						<li><a href="/10_MODEL2/loginPage.m">마이페이지</a></li>
-						<li><a href="/10_MODEL2/selectAllBoardPage.b">게시판</a></li>
+						<li><a href="/10_MODEL2/selectListBoardPage.b">게시판</a></li>
 					</c:if>
 					<%-- 로그인되어 있을 때, 보여지는 NAV --%>
 					<c:if test="${loginDTO != null}">
 						<li><a href="/10_MODEL2/logout.m">로그아웃</a></li>
 						<li><a href="/10_MODEL2/myPage.m">마이페이지</a></li>
-						<li><a href="/10_MODEL2/selectAllBoardPage.b">게시판</a></li>
+						<li><a href="/10_MODEL2/selectListBoardPage.b">게시판</a></li>
 					</c:if>
 				</ul>
 				<p class="welcome_T">
