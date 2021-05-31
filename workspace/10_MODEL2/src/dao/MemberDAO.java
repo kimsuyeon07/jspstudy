@@ -142,11 +142,80 @@ public class MemberDAO {
 	}
 	
 	
+	/* 6. 비밀번호 변경 */
+	public int updatePw(MemberDTO dto) {
+		int result = 0;
+		try {
+			con = dataSource.getConnection();
+			sql = "UPDATE MEMBER SET PW = ? WHERE NO = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getPw());
+			ps.setLong(2, dto.getNo());
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			 e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+		
+		
+		return result;
+	}
+
+	
+	/* 7. 회원정보 변경  */
+	public int updateMember(MemberDTO dto) {
+		int result = 0;
+		try {
+			con = dataSource.getConnection();
+			sql = "UPDATE MEMBER SET NAME = ?, EMAIL = ? WHERE NO = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getName());
+			ps.setString(2, dto.getEmail());
+			ps.setLong(3, dto.getNo());
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+		
+		return result;
+	}
 	
 	
+	/* 8. 회원 탈퇴 */
+	public int deleteMember(long no) {
+		int result = 0;
+		try {
+			con = dataSource.getConnection();
+			sql = "DELETE FROM MEMBER WHERE NO = ?";
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, no);
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+		
+		return result;
+	}
 	
-	
-	
+	/* 9. 회원 접속 정보 삭제 */
+	public void deleteMemberLog(String id) {
+		try {
+			con = dataSource.getConnection();
+			sql = "DELETE FROM MEMBER_LOG WHERE ID = ? ";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+	}
 	
 	
 	

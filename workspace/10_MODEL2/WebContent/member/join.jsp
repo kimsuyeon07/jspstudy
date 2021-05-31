@@ -4,7 +4,7 @@
 
 <% request.setCharacterEncoding("UTF-8"); %>
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="로그인" name="title"/>
+	<jsp:param value="회원가입" name="title"/>
 </jsp:include>
 
 <link rel="stylesheet" href="../assets/css/layout.css">

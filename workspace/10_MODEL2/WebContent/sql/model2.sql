@@ -82,6 +82,6 @@ INSERT INTO MEMBER VALUES (MEMBER_SEQ.NEXTVAL, 'rose','1111','장미','rose@home
 INSERT INTO MEMBER VALUES (MEMBER_SEQ.NEXTVAL, 'prodo','1111','프로도','prodo@home.com', SYSDATE);
 
 
-select * from member;
+
 
 
