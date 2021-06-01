@@ -33,6 +33,10 @@
 	td:nth-child(3) { width: 25%; }
 	td:nth-child(4) { width: 10%; }
 	td:nth-child(5) { width: 20%; }
+	
+	tfoot {
+		text-align: center;
+	}
 
 	
 </style>
@@ -70,7 +74,7 @@
 		</tbody>
 		<tfoot>
 			<td colspan="5">
-				<indput type="button" value="">
+				${paging}
 			</td>
 		</tfoot>
 		

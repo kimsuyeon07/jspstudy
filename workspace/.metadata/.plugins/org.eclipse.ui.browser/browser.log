@@ -35,3 +35,6 @@
 5월 31, 2021 09:04:23.349 [5992:4992:0531/090423.336:ERROR:device_event_log_impl.cc(214)] [09:04:23.332] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
 5월 31, 2021 09:15:02.726 [5872:3408:0531/091502.726:ERROR:device_event_log_impl.cc(214)] [09:15:02.726] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
 5월 31, 2021 16:04:03.652 [5872:3408:0531/160403.638:ERROR:CONSOLE(67)] "Uncaught TypeError: Cannot read property 'reloadInspectedPage' of undefined", source: devtools://devtools/bundled/devtools_compatibility.js (67)
+
+6월 01, 2021 09:00:55.759 NEW SESSION
+6월 01, 2021 09:00:55.759 [4784:1992:0601/090055.755:ERROR:device_event_log_impl.cc(214)] [09:00:55.754] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
