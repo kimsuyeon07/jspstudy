@@ -51,6 +51,7 @@ public class SelectListBoardCommand implements BoardCommand {
 		request.setAttribute("list", list);
 		request.setAttribute("totalRecord", totalRecord);
 		request.setAttribute("paging", paging);
+		request.setAttribute("seq", totalRecord - (page - 1) * recordPerPage);
 		
 		/* 9.이동할 경로  + 이동방법(false): forward */
 		ModelAndView mav = new ModelAndView("/board/listBoard.jsp", false); 
@@ -59,6 +60,10 @@ public class SelectListBoardCommand implements BoardCommand {
 		/* 10. return 리턴 값 (mav) */
 		return mav;
 	}
+	
+	
+	
+	/*-------------------------설명--------------------------*/
 	
 	/* [ 7. 페이징 처리 ] 를 위한 준비작업
 	 * ▼

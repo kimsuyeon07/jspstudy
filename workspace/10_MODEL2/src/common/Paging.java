@@ -36,25 +36,43 @@ public class Paging {
 			// "<span class="paging"> 이전 </span>"
 			sb.append("이전&nbsp;");
 		} else {
-			// <a href = path"/10_MODEL2/selectListBoardPage.b?page=5">이전&nbsp;</a>
-			sb.append("<a href=\"" + path + "?page=" + (beginPage - 1) + "\">이전&nbsp;</a>");
+			if(path.contains("?")) { // 현재 path에 "?"을 포함하고 있다면
+				// <a href = path"/10_MODEL2/selectListBoardPage.b?page=5">이전&nbsp;</a>
+				sb.append("<a href=\"" + path + "&page=" + (beginPage - 1) + "\">이전&nbsp;</a>");
+			} else {
+				sb.append("<a href=\"" + path + "?page=" + (beginPage - 1) + "\">이전&nbsp;</a>");
+			}
 		}
+			
+				
 		
 		// 1 2 3 4 5
 		for(int p = beginPage; p <= endPage; p++) {
 			if (p == page) { // 현재 페이지는 링크를 걸지 않는다.
 				sb.append(p + "&nbsp;");
 			} else {
-				sb.append("<a href=\"" + path + "?page=" + p + "\">" + p + "&nbsp;</a>");
+				if (path.contains("?")) {
+					sb.append("<a href=\"" + path + "&page=" + p + "\">" + p + "&nbsp;</a>");
+				} else {
+					sb.append("<a href=\"" + path + "?page=" + p + "\">" + p + "&nbsp;</a>");
+				}
 			}
 		}
+			
+				
 		
 		// 다음
 		if(endPage == totalPage) {
 			sb.append("다음");
 		} else {
-			sb.append("<a href=\"" + path + "?page=" + (endPage + 1) + "\">다음</a>");
+			if (path.contains("?")) {
+				sb.append("<a href=\"" + path + "&page=" + (endPage + 1) + "\">다음</a>");
+			} else {
+				sb.append("<a href=\"" + path + "?page=" + (endPage + 1) + "\">다음</a>");
+			}
 		}
+			
+				
 		/* return 리턴값(sb.toString()) */
 		return sb.toString();
 		
