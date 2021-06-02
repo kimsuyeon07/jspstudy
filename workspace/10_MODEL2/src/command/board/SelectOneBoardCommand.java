@@ -1,11 +1,14 @@
 package command.board;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ModelAndView;
 import dao.BoardDAO;
 import dto.BoardDTO;
+import dto.ReplyDTO;
 
 public class SelectOneBoardCommand implements BoardCommand {
 
@@ -25,6 +28,15 @@ public class SelectOneBoardCommand implements BoardCommand {
 		BoardDAO.getInstace().updateHit(idx);
 		
 		
+		// 댓글의 개수 구하기
+		// DAO의 getReplyCount() 메소드 호출
+		int replyCount = BoardDAO.getInstace().getReplyCount(idx);
+		
+		
+		// 댓글 목록 
+		List<ReplyDTO> replyList = BoardDAO.getInstace().selectListReply(idx);
+		
+		
 		/* 게시글이 존재하던 목록의 주소 */
 		String referer = request.getHeader("referer");
 		
@@ -34,6 +46,8 @@ public class SelectOneBoardCommand implements BoardCommand {
 		// session으로 전달한다면 계속 사용이 가능하다.
 		request.setAttribute("dto", dto);
 		request.setAttribute("referer", referer);
+		request.setAttribute("replyCount", replyCount);
+		request.setAttribute("replyList", replyList);
 		
 		/* 어디로 어떻게 */
 		ModelAndView mav = new ModelAndView("/board/viewBoard.jsp", false); // forward
