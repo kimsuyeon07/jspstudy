@@ -76,7 +76,7 @@ public class BoardDTO {
 	public long getGroupno() {
 		return groupno;
 	}
-	public void setGroupno(int groupno) {
+	public void setGroupno(long groupno) {
 		this.groupno = groupno;
 	}
 	public int getGroupord() {

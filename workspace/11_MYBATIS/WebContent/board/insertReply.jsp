@@ -25,6 +25,7 @@
 			outline: none;
 			border: none;
 			padding-left: 10px;
+			width: 80%;
 		}
 		div input[type="text"]{
 			height: 40px;
@@ -60,14 +61,17 @@
 </head>
 <body>
 	
-	<form action="/11_MYBATIS/insert.do" method="post">
-		<h3>게시글 작성하기</h3>
+	<form action="/11_MYBATIS/insertRelpy.do" method="post">
+		<h3>댓글 작성하기</h3>
 		<p>작성자</p>
 		<div><input type="text" name="author" autofocus></div>
 		<p>제목</p>
 		<div><input type="text" name="title" required></div>
 		<p>내용</p>
 		<div><textarea name="content" rows="5" cols="80"></textarea></div>
+		
+		<%-- 원글의 그룹번호 --%>
+		<input type="hidden" name="groupno" value="${param.groupno}">
 		 
 		<button>저장하기</button>
 		<input type="reset" value="작성초기화">

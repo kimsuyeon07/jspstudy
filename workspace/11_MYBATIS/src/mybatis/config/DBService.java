@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class DBService {
 
 	
-	// Singleton
+	// Singleton *작업진행*
 	private static DBService instance = new DBService();
 	/* 추가로 필요한 작업 : 공장을 하나 만들어 준다. */
 	private SqlSessionFactory factory;
@@ -25,14 +25,14 @@ public class DBService {
 			e.printStackTrace();
 		}
 	}
-	public static DBService getInstance() {
+	public static DBService getInstance() {  // *작업진행*
 		if (instance == null) {
 			instance = new DBService();
 		}
 		return instance;
 	}
 	
-	public SqlSessionFactory getFactory() {
+	public SqlSessionFactory getFactory() {  // *작업진행*
 		return factory;
 	}
 	

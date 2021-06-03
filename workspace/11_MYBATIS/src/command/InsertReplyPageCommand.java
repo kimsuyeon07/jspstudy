@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.ModelAndView;
 
-public class InsertPageCommand implements BoardCommand {
+public class InsertReplyPageCommand implements BoardCommand {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		return new ModelAndView("/board/insert.jsp", false); // forward : 파라미터를 같이 보낸다!
+		return new ModelAndView("/board/insertReply.jsp", false);
 	}
 
 }

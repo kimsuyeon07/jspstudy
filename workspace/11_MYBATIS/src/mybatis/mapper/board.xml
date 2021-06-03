@@ -8,53 +8,158 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- namespace는 mapper의 전체경로(패키지 포함)를 작성한다.여기서는 "." -->
 <mapper namespace="mybatis.mapper.board">
-
-	<insert id="insertBoard" parameterType="dto.BoardDTO">  <!-- **  ${}가 아닌 #{}이다!  ** -->
+	
+	 <!-- **  #{ } : "문자열"  : ''를 붙여주라는 의미  ** -->
+	 <!-- **  ${ } : "숫자 타입"  ** -->
+	 <!-- **  쿼리문을 작성하고 ";"은 작성하지 않는다.  ** -->
+	 <!-- #{author} : dto.BoardDTO에서 getAuthor()를 실행한다. -->
+	  
+	 <!--  -->
+	 
+	 <!-- INSERT, UPDATE, DELETE문에는 resultType을 작성하지 않는다. -->
+	 <!-- ▲ (스스로 'int'를 반환하는 타입을 가지고 있다.) ▲ -->
+	 
+	 <!-- SELECT문에는 "resultType"를 작성해줘야 한다. -->
+	 <!-- ▲ (resultType:dto : 대부분은 'dto'를 반환한다!) ▲ -->
+	 
+	 <!-- [ id="insertBoard" ] : "mybatis.mapper.board.insertBoard"의 마지막부분을 담담. -->
+	<insert id="insertBoard" parameterType="dto.BoardDTO"> 
 		INSERT INTO 
 		 BOARD 
 		VALUES (BOARD_SEQ.NEXTVAL, 
-				#{author}, <!--dto.BoardDTO에서 getAuthor()를 실행한다.  -->
+				#{author}, 
 				#{title},
 				#{content},
 				#{ip},
-				0,  <!-- 조회수 -->
-				SYSDATE,  <!-- 작성일 -->
-				SYSDATE,  <!--최종수정일  -->
-				0, 		  <!-- 정상:0, 삭제:-1  -->
+				0,  				<!-- 조회수 -->
+				SYSDATE,  			<!-- 작성일 -->
+				SYSDATE,  			<!--최종수정일  -->
+				0, 		  			<!-- 정상:0, 삭제:-1  -->
 				BOARD_SEQ.CURRVAL,  <!-- 그룹번호: 게시글번호와 같다 -->
 				0, <!-- 같은 그룹 내부에서 순서를 정하는 순번 -->
-				0  <!-- 게시글/ 댓글 구분 : 댓글은 1이상의 숫자를 가진다. -->
+				0  <!-- 게시글/댓글 구분 : 댓글은 1이상의 숫자를 가진다. -->
 		)
 	</insert>
 	
 	
-	<select id="getTotalRecord" resultType="int"> <!-- int 반환 (리턴 값) -->
+	<!-- int 반환 (리턴 값) :: integer로도 작성 가능 -->
+	<select id="getTotalRecord" resultType="int">
 		SELECT COUNT(NO)
 		  FROM BOARD
 	</select>
 	
 	
+	<!--  단 1단 댓글만 허용하는 게시판의 정렬 -->
 	<select id="selectList" parameterType="Map" resultType="dto.BoardDTO"> 
 	<!-- List를 반환하더라도, List<BoardDTO>를 반환하기 때문에 "dto.BoardDTO"으로 적상한다. -->
+	<!-- 
+		게시글의 정렬 방법
+		: ** NO(게시글의 순번)으로 진행하면 정렬이 맞지 않는다. **
+			->> 정렬에 필요한 칼럼 [ GROUPNO, GROUPORD, DEPTH ]
+				<정렬 순서>
+				1. GROUPNO  (내림차순) DESC 
+				2. DEPTH    (오름차순) ASC 
+				3. GROUPORD (내림차순) DESC 
+				<작성 방법>
+				:: >> ORDER BY GROUPNO DESC, DEPTH ASC, GROUPORD DESC : 먼저 단 댓글이 위로 올라온다
+				:: >> ORDER BY GROUPNO DESC, DEPTH ASC, GROUPORD ASC  : 나중에 단 댓글이 위로 올라온다
+	-->
 	SELECT B.*
 	  FROM (SELECT ROWNUM AS RN, A.*
 	   		  FROM (SELECT *
 	   		  		  FROM BOARD
-	   		  		 ORDER BY POSTDATE DESC) A) B
+	   		  		 ORDER BY GROUPNO DESC, DEPTH ASC, GROUPORD ASC) A) B
+	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+		
+	</select>
+	
+	
+	<!-- 대댓글만 허용하는 게시판의 정렬 -->
+	<select id="selectList3" parameterType="Map" resultType="dto.BoardDTO"> 
+	SELECT B.*
+	  FROM (SELECT ROWNUM AS RN, A.*
+	   		  FROM (SELECT *
+	   		  		  FROM BOARD
+	   		  		 ORDER BY GROUPNO DESC, GROUPORD ASC) A) B
 	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 		
 	</select>
 
 
+	<!-- [ AND DEPTH = 1 ] 기존 댓글임을 알릴 수 있도록  -->
+	<update id="increseGroupordPerviousReply" parameterType="long">
+		UPDATE BOARD
+		   SET GROUPORD = GROUPORD + 1
+		 WHERE GROUPNO = ${groupno}
+		   AND DEPTH = 1
+	</update>
+
 	
+	<!-- 댓글 삽입 -->
+	<!-- ${ } , #{ } 의 차이 구분!! (숫자, 문자열)타입의 구분 -->
+	<insert id="insertReply" parameterType="dto.BoardDTO">
+		INSERT INTO 
+		 BOARD 
+		VALUES (BOARD_SEQ.NEXTVAL, 
+				#{author}, 
+				#{title},
+				#{content},
+				#{ip},
+				0,  				<!-- 조회수 -->
+				SYSDATE,  			<!-- 작성일 -->
+				SYSDATE,  			<!--최종수정일  -->
+				0, 		  			<!-- 정상:0, 삭제:-1  -->
+				${groupno},  <!-- 그룹번호: 게시글번호와 같다 -->
+				${groupord}, <!-- 같은 그룹 내부에서 순서를 정하는 순번 -->
+				${depth}  <!-- 게시글/댓글 구분 : 댓글은 1이상의 숫자를 가진다. -->
+		)
+	</insert>
 
 
+	<!-- 검색 결과(개수) 반환 -->
+	<!-- 
+		<Map>안에 들어 있는 값 : "column", "query"
+		column : TITLE, AUTHOR, BOTH (중 한 가지로 받아온다)
+		▼
+		#{column} : 'TITLE', 'AUTHOR', 'BOTH'
+		${column} : TITLE, AUTHOR, BOTH
+		▼ ▼
+		조건식의 조건칼럼에는 ''이 붙은 채로 작성하면 <오류>가 난다. 
+		◇ ◇ ◇ ◇ ◇
+		▼
+		#{query} : '%검색어%'
+		▼ ▼
+		조건식의 문자열은 ''을 붙여야한다! [ *무조건 #{ }으로 작성* ]
+	-->
+	<select id="getFindRecordCount" parameterType="Map" resultType="int">
+		SELECT COUNT(NO)
+		  FROM BOARD
+		 WHERE STATS = 0
+		   AND <if test="column != 'BOTH'">${column} LIKE #{query}</if>
+		       <if test="column == 'BOTH'">TITLE LIKE #{query} OR AUTHOR LIKE #{query}</if>
+	</select>
 
 
+	<!-- 검색결과 리스트 반환 -->
+	<!-- 해당 조건식은 우선 실행 할 수 있도록 작업한다. -->
+	<select id="findList" parameterType="Map" resultType="dto.BoardDTO">
+		SELECT B.*
+	  	  FROM (SELECT ROWNUM AS RN, A.*
+	   		      FROM (SELECT *
+	   		  		      FROM BOARD
+	   		  		     WHERE STATS = 0
+		  				    AND <if test="column != 'BOTH'">${column} LIKE #{query}</if>
+		     				    <if test="column == 'BOTH'">TITLE LIKE #{query} OR AUTHOR LIKE #{query}</if>
+	   		  		     ORDER BY GROUPNO DESC, DEPTH ASC, GROUPORD ASC) A) B
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
 
 
-
-
+	<update id="delete">
+		UPDATE BOARD 
+		   SET STATS = -1
+		 WHERE NO = ${no}
+	</update>
 
 
 

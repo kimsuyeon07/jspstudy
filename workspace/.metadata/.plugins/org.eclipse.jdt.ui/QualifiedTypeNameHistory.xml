@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="command.member.LoginCommand"/>
-<fullyQualifiedTypeName name="command.member.LogoutCommand"/>
-<fullyQualifiedTypeName name="javax.websocket.Session"/>
-<fullyQualifiedTypeName name="command.member.JoinPageCommand"/>
-<fullyQualifiedTypeName name="command.member.JoinCommand"/>
-<fullyQualifiedTypeName name="command.member.MyPageCommand"/>
-<fullyQualifiedTypeName name="command.member.UpdatePwPageCommand"/>
 <fullyQualifiedTypeName name="command.member.UpdatePwCommand"/>
 <fullyQualifiedTypeName name="command.member.UpdateMemberCommand"/>
 <fullyQualifiedTypeName name="command.member.DeleteMemberCommand"/>
@@ -50,14 +43,21 @@
 <fullyQualifiedTypeName name="command.InsertPageCommand"/>
 <fullyQualifiedTypeName name="command.InsertCommand"/>
 <fullyQualifiedTypeName name="java.io.PrintWriter"/>
-<fullyQualifiedTypeName name="common.ModelAndView"/>
 <fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSessionFactory"/>
 <fullyQualifiedTypeName name="java.util.Optional"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="common.Paging"/>
+<fullyQualifiedTypeName name="command.InsertReplyPageCommand"/>
+<fullyQualifiedTypeName name="command.InsertReplyCommand"/>
+<fullyQualifiedTypeName name="command.FindListCommand"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
-<fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="dto.BoardDTO"/>
+<fullyQualifiedTypeName name="command.SelectListCommand2"/>
 <fullyQualifiedTypeName name="dao.BoardDAO"/>
-<fullyQualifiedTypeName name="common.Paging"/>
+<fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
+<fullyQualifiedTypeName name="common.ModelAndView"/>
+<fullyQualifiedTypeName name="command.DeleteCommand"/>
+<fullyQualifiedTypeName name="command.SelectListCommand3"/>
+<fullyQualifiedTypeName name="command.InsertReplyCommand3"/>
 </qualifiedTypeNameHistroy>
