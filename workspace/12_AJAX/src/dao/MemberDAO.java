@@ -78,6 +78,16 @@ public class MemberDAO {
 	
 	
 	
+	/* 6. 회원 탈퇴 */
+	public int deleteUser(long no) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("dao.member.deleteUser", no);
+		if (result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

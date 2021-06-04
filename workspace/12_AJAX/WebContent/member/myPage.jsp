@@ -9,7 +9,7 @@
 		*{margin:0 auto; padding:0; text-decoration:none; box-sizing:border-box; font-size:14px;}
 		.clear {clear:both;}
 		body {padding:0 20px;}
-		#my_form { width:450px; margin:50px 0 70px 0;}
+		#my_form { width:450px; margin-top:50px; margin-bottom: 70px;}
 		.hi {text-decoration:underline;}
 		#logout{
 			padding:10px 30px;
@@ -54,7 +54,13 @@
 			border:none;
 			font-weight:600;
 			font-size:15px;
+			margin-bottom: 10px;
 		}
+		input[value="회원탈퇴"] {
+			cursor:pointer; 
+			font-size:15px;
+		}
+		
 		
 	</style>
 	
@@ -81,6 +87,10 @@
 			$('#update_user_btn').click(function(){
 				// 회원정보수정_updateUser() 호출
 				updateUser();
+			})
+			$('#delete_user_btn').click(function(){
+				// 회원 탈퇴_deleteUser() 호출
+				deleteUser();
 			})
 			
 			
@@ -149,6 +159,30 @@
 			}
 			
 			
+			function deleteUser() {
+				if (!confirm('정말 탈퇴하시겠습니까?')) {
+					return;
+				}
+				$.ajax({
+					url:'/12_AJAX/deleteUser.do',
+					type: 'post',
+					data: 'no=${loginUser.no}',
+					dataType: 'json',
+					success: function(obj){
+						if(obj.result == 1) {
+							alert('탈퇴되었습니다. 이용해주셔서 감사합니다.');
+							location.href='/12_AJAX/index.jsp';
+						} else {
+							alert('탈퇴가 진행되지 않았습니다. 다시 한 번 확인바랍니다.');
+						}
+					},
+					error: function(){
+						console.log(status + ", " + error);
+						alert('오류가 발생했습니다.');
+					}
+				})
+			}
+			
 			
 			
 		}) // 페이지 로드 (종료)
@@ -190,6 +224,7 @@
 			
 			<input type="hidden" name="no" value="${loginUser.no}">
 			<input type="button" value="회원정보수정" id="update_user_btn">
+			<input type="button" value="회원탈퇴" id="delete_user_btn">
 	 	</div>
 	</form>
 	

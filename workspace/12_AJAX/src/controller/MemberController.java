@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import command.DeleteUserCommand;
 import command.IdCheckCommand;
 import command.JoinCommand;
 import command.JoinPageCommand;
@@ -66,6 +67,9 @@ public class MemberController extends HttpServlet {
 			break;
 		case "updateUser.do":
 			command = new UpdateUserCommand();
+			break;
+		case "deleteUser.do":
+			command = new DeleteUserCommand();
 			break;
 		}
 		
