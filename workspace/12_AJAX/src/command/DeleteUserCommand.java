@@ -23,6 +23,10 @@ public class DeleteUserCommand implements MemberCommand {
 		// DTO에 저장할 필요 없다.
 		
 		int result = MemberDAO.getInstance().deleteUser(no);
+		if (result > 0) {
+			request.getSession().invalidate();
+		}
+		
 		
 		JSONObject obj = new JSONObject();
 		obj.put("result", result);

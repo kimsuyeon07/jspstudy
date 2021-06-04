@@ -119,9 +119,9 @@
 					success: function(obj){
 						if (obj.result == 1) {
 							alert('비밀번호가 변경되었습니다.');
-							$('#pw0').val();
-							$('#pw').val();
-							$('#pw1').val();
+							$('#pw0').val('');
+							$('#pw').val('');
+							$('#pw1').val('');
 						} else {
 							alert('비밀번호 변경이 되지 않았습니다.');
 						}

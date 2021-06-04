@@ -32,10 +32,14 @@ public class UpdateUserCommand implements MemberCommand {
 		member.setPhone(phone);
 		
 		int result = MemberDAO.getInstance().updateUser(member);
-		/*
-		 * if (result > 0) { HttpSession session = request.getSession(); Member
-		 * loginUser = (Member)session.getAttribute("loginUser"); loginUser.setPw(pw); }
-		 */
+		if (result > 0) { 
+			HttpSession session = request.getSession(); 
+			Member loginUser = (Member)session.getAttribute("loginUser"); 
+			loginUser.setName(name);
+			loginUser.setEmail(email);
+			loginUser.setPhone(phone);
+			}
+		
 		
 		JSONObject obj = new JSONObject();
 		obj.put("result", result);
