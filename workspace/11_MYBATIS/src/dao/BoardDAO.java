@@ -135,7 +135,7 @@ public class BoardDAO {
 	
 	// 대댓글 게시판
 	
-	/* 3. 전체 게시글 목록 */
+	/* 1. 전체 게시글 목록 */
 	public List<BoardDTO> selectList3(Map<String, Integer> map) {
 		SqlSession ss = factory.openSession();
 		List<BoardDTO> list = ss.selectList(NAMESPACE + ".selectList3", map);
@@ -143,6 +143,27 @@ public class BoardDAO {
 		
 		return list;
 	}
+	
+	/* 2. 원글 가져오기 */
+	public BoardDTO selectBoard(long no) {
+		SqlSession ss = factory.openSession();
+		BoardDTO boardDTO = ss.selectOne(NAMESPACE+".selectBoard", no);
+		ss.close();
+		return boardDTO;
+	}
+	
+	
+	/* 3. 원글의 groupord보다 큰 groupord를 가진 댓글의 groupord 증가 */
+	public int increseGroupordPerviousReply(BoardDTO boardDTO) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update(NAMESPACE+".increseGroupordPerviousReply", boardDTO);
+		if (result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
+	
 	
 	
 	
