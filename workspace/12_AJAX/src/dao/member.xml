@@ -11,7 +11,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="dao.member">
 	
 	 
+	<select id="login" parameterType="dto.Member" resultType="dto.Member">
+		SELECT NO, ID, PW, NAME, EMAIL, PHONE, REGDATE
+		  FROM MEMBER
+		 WHERE ID = #{id}
+		   AND PW = #{pw}
+	</select>
+
+	<!-- idCheck -->
+	<select id="idCheck" parameterType="String" resultType="dto.Member">
+		SELECT ID
+		  FROM MEMBER
+		 WHERE ID = #{id}
+	</select>
 
 
+	<insert id="join" parameterType="dto.Member">
+		INSERT INTO MEMBER
+		VALUES (MEMBER_SEQ.NEXTVAL, #{id}, #{pw}, #{name}, #{email}, #{phone}, SYSDATE)
+	</insert>
+	
+	
+	
+	<update id="updatePw" parameterType="dto.Member">
+		UPDATE MEMBER
+		   SET PW = #{pw}
+		 WHERE NO = ${no}
+	</update>
+	
+	<update id="updateUser" parameterType="dto.Member">
+		UPDATE MEMBER
+ 		   SET NAME = #{name}, EMAIL = #{email}, PHONE = #{phone}
+ 		 WHERE NO = ${no} 
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

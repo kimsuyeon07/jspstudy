@@ -156,7 +156,7 @@ public class BoardDAO {
 	/* 3. 원글의 groupord보다 큰 groupord를 가진 댓글의 groupord 증가 */
 	public int increseGroupordPerviousReply(BoardDTO boardDTO) {
 		SqlSession ss = factory.openSession(false);
-		int result = ss.update(NAMESPACE+".increseGroupordPerviousReply", boardDTO);
+		int result = ss.update(NAMESPACE+".increseGroupordPerviousReply3", boardDTO);
 		if (result > 0) {
 			ss.commit();
 		}

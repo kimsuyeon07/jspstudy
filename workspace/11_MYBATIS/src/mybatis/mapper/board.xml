@@ -74,16 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<!-- 대댓글만 허용하는 게시판의 정렬 -->
-	<select id="selectList3" parameterType="Map" resultType="dto.BoardDTO"> 
-	SELECT B.*
-	  FROM (SELECT ROWNUM AS RN, A.*
-	   		  FROM (SELECT *
-	   		  		  FROM BOARD
-	   		  		 ORDER BY GROUPNO DESC, GROUPORD ASC) A) B
-	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
-		
-	</select>
+	
 
 
 	<!-- [ AND DEPTH = 1 ] 기존 댓글임을 알릴 수 있도록  -->
@@ -162,6 +153,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 
+
+		
+	<!-- 대댓글만 허용하는 게시판의 정렬 -->
+	<select id="selectList3" parameterType="Map" resultType="dto.BoardDTO"> 
+	SELECT B.*
+	  FROM (SELECT ROWNUM AS RN, A.*
+	   		  FROM (SELECT *
+	   		  		  FROM BOARD
+	   		  		 ORDER BY GROUPNO DESC, GROUPORD ASC) A) B
+	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+		
+	</select>
+	
+
+
 	<select id="selectBoard" parameterType="long" resultType="dto.BoardDTO">
 		SELECT *
 		  FROM BOARD
@@ -170,7 +176,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
-	<update id="increseGroupordPerviousReply" parameterType="dto.BoardDTO">
+	<update id="increseGroupordPerviousReply3" parameterType="dto.BoardDTO">
 		UPDATE BOARD
 		   SET GROUPORD = GROUPORD + 1
 		 WHERE GROUPNO = ${groupno}
