@@ -9,11 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import controller.MemberController;
 import controller.ModelAndView;
 import dao.MemberDAO;
 import dto.Member;
-import dto.Paging;
 
 public class SelectMemberListCommand implements MemberCommand {
 
@@ -23,13 +21,21 @@ public class SelectMemberListCommand implements MemberCommand {
 		/* 페이징 작업 : totalRecord, beginRecord, endRecord */ 
 		// JSON(obj)에 [ 해당 3가지를 전달해줘야한다. ]
 		int totalRecord = MemberDAO.getInstance().getMemberCount();
-		// Paging(DTO)에 전달
-		Paging paging = new Paging();
-		paging.setTotalRecord(totalRecord);
+		/*------------------------------------------------------------*/
+		
 		
 		List<Member> list = MemberDAO.getInstance().selectMemberList();
 		
+		/*
+		 * 1. JSP로 반환할 결과 JSON(obj)
+		 * 2. 페이지 관련 변수만 저장할 JSON(paging)
+		*/
 		JSONObject obj = new JSONObject();
+		
+		JSONObject paging = new JSONObject();
+		paging.put("totalRecord", totalRecord);
+		obj.put("paging", paging); 
+		// (결과 값) obj = { paging:{totalRecord..}, list={}, isSuccess="true"}  
 		
 		if(list.size() > 0) { // list안에 데이터가 있으면
 			/* "JSONArray"를 사용해서 회원정보를 불러온다! */
@@ -48,6 +54,7 @@ public class SelectMemberListCommand implements MemberCommand {
 			obj.put("list", arr);
 			obj.put("isExist", true);
 			//System.out.println(obj.toJSONString());
+			
 		} else {
 			obj.put("isExist", false);
 		}

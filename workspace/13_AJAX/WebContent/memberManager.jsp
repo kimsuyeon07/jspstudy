@@ -128,7 +128,7 @@
 					*/ 
 					
 					// 전체 회원수
-					$('#totalRecord').text('전체 회원: ' + );
+					$('#totalRecord').text('전체 회원: ' + result.paging.totalRecord + '명');
 					
 					/* 테이블 생성 작업 */
 					// 기존의 목록을 화면에서 제거
