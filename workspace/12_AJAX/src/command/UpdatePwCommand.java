@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
-import common.MemberCommand;
 import common.ModelAndView;
 import dao.MemberDAO;
 import dto.Member;

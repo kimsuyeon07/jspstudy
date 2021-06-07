@@ -3,7 +3,6 @@ package command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.MemberCommand;
 import common.ModelAndView;
 
 public class JoinPageCommand implements MemberCommand {

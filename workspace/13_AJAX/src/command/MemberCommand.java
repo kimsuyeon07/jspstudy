@@ -1,10 +1,13 @@
-package common;
+package command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public interface MemberCommand {
+import controller.ModelAndView;
 
+public interface MemberCommand {
 	
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+
 }

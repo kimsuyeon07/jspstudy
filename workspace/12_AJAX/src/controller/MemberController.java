@@ -14,9 +14,9 @@ import command.JoinPageCommand;
 import command.LoginCommand;
 import command.LoginPageCommand;
 import command.LogoutCommand;
+import command.MemberCommand;
 import command.UpdatePwCommand;
 import command.UpdateUserCommand;
-import common.MemberCommand;
 import common.ModelAndView;
 
 /**

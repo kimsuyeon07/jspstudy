@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import common.MemberCommand;
 import common.ModelAndView;
 import dao.MemberDAO;
 import dto.Member;
