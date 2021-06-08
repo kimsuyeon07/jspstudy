@@ -23,9 +23,8 @@
 			height:40px;
 			border: 1px solid lightgray;
 		}
-		.left input[value="여"] {
-			margin-left: 5px;
-		}
+		.left input[type="radio"] { margin:7px 3px 0 0; }
+		.left input[value="여"] { margin-left: 5px; }
 		.left select {
 			margin-top: 5px;
 			padding-left:5px;
@@ -37,7 +36,7 @@
 		.left input[type="text"]:focus, .left select:focus {border:1px solid green;}
 		.left input[type="button"] {
 			margin-top: 10px;
-			margin-right: 10px;
+			margin-right: 3px;
 			width:85px;
 			height: 40px;
 			border-radius: 20px;
@@ -51,7 +50,7 @@
 			cursor:pointer;
 		}
 		/* right */
-		.right table { border-collapse: collapse; width:100%; }
+		.right table { border-collapse: collapse; width:100%; margin-top: 10px; }
 		.right tr {}
 		.right td {
 			height: 40px;
@@ -82,6 +81,22 @@
 			cursor:pointer;
 		}
 		
+		/* <tfoot> : paging */
+		tfoot tr {background-color:#f9f9f9;}
+		#paging div {
+			display: inline-block;
+			margin: 6px 6px;
+		}
+		.disable { color:lightgray; }
+		.now_page {
+			color:green; 
+			text-decoration:underline;
+			font-weight: 600;
+		}
+		.link:hover { 
+			cursor: pointer;
+			font-weight: 600;
+		 }
 		
 	</style>
 	
@@ -96,6 +111,7 @@
 		$(function(){
 			
 			selectMemberList();
+			fn_paging();
 			selectMemberByNo();
 			updateMember();
 			init();
@@ -104,13 +120,25 @@
 			
 		}) // 로드 이벤트 (종료)
 		
+		/*--------함수----------*/
 		
+		// 페이징 처리를 위한 현재 페이지
+		var page = 1;
 		
+		/* 
+		  "페이징의<a>"를 클릭하면 selectMemberList()를 호출해준다. 
+			↓ <a href="/13_AJAX/selectMemberList.do?page=2">를 해주게 되면 
+			  : result값을 받아오기때문에,
+			  	[selectMemberList()]를 다시 호출해줘야 한다.
+		*/
+			
 		/* 1. 함수 : selectMemberList() */ 
 		function selectMemberList(){
+			// 목록 + 페이징 작업
 			$.ajax({
-				url: 'selectMemberList.do',
+				url: '/13_AJAX/selectMemberList.do',
 				type: 'get',
+				data: 'page='+page,  
 				dataType: 'json',
 				success: function(result){
 					/*
@@ -134,6 +162,7 @@
 					// 기존의 목록을 화면에서 제거
 					$('#memberList').empty();
 					
+					/* 회원 목록 출력 */
 					if (result.isExist) { // 목록이 있다면,
 						generateMemberList(result.list);
 					} else { // 목록이 없으면,
@@ -141,7 +170,45 @@
 						.append( $('<td colspan="6">').text('회원목록이 없습니다.') ) // 3.<tr>안에 <td>를 만들겠다.
 								 // ()내부의 괄호 먼저 진행하겠다.
 						.appendTo('#memberList'); // 1.'#memberList' 안에서 진행하겠다.
+					} /* ▲ 회원 목록 출력 ▲ */
+					
+					/* 페이징 출력 */
+					var paging = result.paging;
+					// 페이징 영역 초기화 (하는게 좋다.)
+					$('#paging').empty();
+					// 이전
+					if (paging.beginPage <= paging.pagePerBlock) { // 이전이 없는 1블록
+						// class 
+						// 1.desable(링크가 없다. css색상:lightgray)
+						$('<div class="disable">이전 </div>').appendTo('#paging');
+					} else { // 이전이 있는 이후 블록
+						// 1.prev_block(click이벤트에서 사용.)
+						// 2.link(css색상:포인터)
+						$('<div class="prev_block link" data-page="'+ (paging.beginPage - 1) +'">이전</div>').appendTo('#paging');
 					}
+					// 1 2 3 4 5 (반복문 : beginPage ~ endPage 까지)
+					for (let p = paging.beginPage ; p <= paging.endPage; p++) {
+						if (paging.page == p) { // 현재페이지
+							// class 
+							// 1.now_page (링크가 없다. css색상:green)
+							$('<div class="now_page">' + p + '</div>').appendTo('#paging');
+						} else {
+							// 1.go_page(click이벤트에서 사용.)
+							// 2.link(css색상:포인터)
+							$('<div class="go_page link" data-page="'+ p +'">' + p + '</div>').appendTo('#paging');
+						}
+					}
+					// 다음
+					if(paging.endPage == paging.totalPage) {
+						// class 
+						// 1.desable(링크가 없다. css색상:lightgray)
+						$('<div class="disable">다음</div>').appendTo('#paging');
+					} else {
+						// 1.next_block(click이벤트에서 사용.)
+						// 2.link(css색상:포인터)
+						$('<div class="next_block link" data-page="'+ (paging.endPage + 1) +'">다음</div>').appendTo('#paging');
+					}
+					/* ▲ 페이징 출력 ▲ */
 				},
 				error: function(xhr, status, error){
 					console.log(status + " : " + error);
@@ -150,7 +217,7 @@
 			})
 		}
 		
-		/* 1-1. 함수: generateMemberList(list) */ 
+		// 1-1. 함수: generateMemberList(list) 
 		// 회원 목록을 받아서 테이블을 생성하는 함수
 		function generateMemberList(list) {
 			$.each(list, function(i, member){ // member : 각각의 하나의 회원정보 : {"no":5,"address":"부산","gender":"여","name":"에이미","id":"user5"}
@@ -167,6 +234,24 @@
 				.appendTo('#memberList');
 			})
 		}
+			
+		// 1-2 페이징의 링크를처리하는 함수 : 이동할 페이지 번호를 계산하고 selectMemberList() 함수 호출
+		function fn_paging() {
+			$('body').on('click', '.prev_block', function(){
+				page = $(this).data('page');
+				selectMemberList();
+			})
+			$('body').on('click', '.go_page', function(){
+				page = $(this).data('page');
+				selectMemberList();
+			})
+			$('body').on('click', '.next_block', function(){
+				page = $(this).data('page');
+				selectMemberList();
+			})
+		}
+			
+		
 			
 			
 		/* 2. 함수: 회원정보 가져오기 */ 
@@ -374,7 +459,16 @@
 						<td>Btn</td>
 					</tr>
 				</thead>
+				
 				<tbody id="memberList"></tbody>
+				
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<div id="paging"></div>
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 			
 		</div>

@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -26,9 +27,9 @@ public class MemberDAO {
 	
 	
 	/* 1. 회원목록가져오기 */
-	public List<Member> selectMemberList() {
+	public List<Member> selectMemberList(Map<String, Integer> map) {
 		SqlSession ss = factory.openSession();
-		List<Member> list = ss.selectList("dao.member.selectMemberList");
+		List<Member> list = ss.selectList("dao.member.selectMemberList", map);
 		// [ select ]는 ss.commit()을 할 필요가 없다. "조회"업무 이기 때문에.
 		ss.close();
 		return list;

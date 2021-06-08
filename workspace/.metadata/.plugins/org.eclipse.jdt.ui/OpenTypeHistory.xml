@@ -6,5 +6,6 @@
 <typeInfo handle="=10_MODEL2/src&lt;command.board{BoardCommand.java[BoardCommand" modifiers="513" timestamp="1622431458519"/>
 <typeInfo handle="=11_MYBATIS/src&lt;command{BoardCommand.java[BoardCommand" modifiers="513" timestamp="1622609696765"/>
 <typeInfo handle="=12_AJAX/D:\/SPRING0303\/install\/apache-tomcat-8.5.65\/lib\/catalina-tribes.jar=/owner.project.facets=/jst.web=/=/javadoc_location=/https:\/\/tomcat.apache.org\/tomcat-8.5-doc\/api\/=/&lt;org.apache.catalina.tribes(Member.class[Member" modifiers="1537" timestamp="1617078520000"/>
-<typeInfo handle="=12_AJAX/src&lt;common{MemberCommand.java[MemberCommand" modifiers="513" timestamp="1622768743800"/>
+<typeInfo handle="=13_AJAX/D:\/SPRING0303\/jspstudy\/workspace\/13_AJAX\/WebContent\/WEB-INF\/lib\/mybatis-3.5.2.jar&lt;org.apache.ibatis.ognl(MemberAccess.class[MemberAccess" modifiers="1537" timestamp="1622600209053"/>
+<typeInfo handle="=13_AJAX/src&lt;command{MemberCommand.java[MemberCommand" modifiers="513" timestamp="1623024959954"/>
 </typeInfoHistroy>

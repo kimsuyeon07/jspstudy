@@ -1,7 +1,10 @@
 package command;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,22 +21,64 @@ public class SelectMemberListCommand implements MemberCommand {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		/* 페이징 작업 : totalRecord, beginRecord, endRecord */ 
+		/* 
+		 * 페이징 작업 : totalRecord(총 회원 수), beginRecord(시작하는 회원번호), endRecord(끝나는 회원번호)
+		 * 		   , recordPerPage(현재 페이지에서 보여주고자 하는 회원 수)
+		 * 		   , totalPage(총 페이지 수), beginPage(현재 페이지에서 시작 페이지), endPage(현재 페이지에서 마지막 페이지)
+		 * 		   , pagePerBlock([5] : 이전  1 2 3 4 5  다음 : 보여주고자 하는 페이지의 개수) 
+		 * 		   , page(현재페이지)
+		*/ 
+		
+		// 파라미터 처리
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
+		
 		// JSON(obj)에 [ 해당 3가지를 전달해줘야한다. ]
 		int totalRecord = MemberDAO.getInstance().getMemberCount();
+		
+		// beginRecord, endRecord 구하기
+		int recordPerPage = 2;
+		int beginRecord = (page - 1) * recordPerPage + 1;
+		int endRecord = beginRecord + recordPerPage - 1;
+		endRecord = (endRecord < totalRecord) ? endRecord : totalRecord;
+		
+		// beginRecord~endRecord : Map
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("beginRecord", beginRecord);
+		map.put("endRecord", endRecord);
+		
 		/*------------------------------------------------------------*/
 		
+		// beginRecord~endRecord 목록 가져오기 + 전체 회원 호출 (DAO)
+		List<Member> list = MemberDAO.getInstance().selectMemberList(map);
 		
-		List<Member> list = MemberDAO.getInstance().selectMemberList();
+		
+		// totalPage, beginPage, endPage 구하기
+		int totalPage = totalRecord / recordPerPage;
+		if (totalRecord % recordPerPage != 0) {
+			totalPage++;
+		}
+		int pagePerBlock = 3;
+		int beginPage = ((page - 1) / pagePerBlock) * pagePerBlock + 1;
+		int endPage = beginPage + pagePerBlock - 1;
+		endPage = (endPage < totalPage) ? endPage : totalPage;
+		
+		
 		
 		/*
-		 * 1. JSP로 반환할 결과 JSON(obj)
-		 * 2. 페이지 관련 변수만 저장할 JSON(paging)
+		 * 1. 페이지 관련 변수만 저장할 JSON(paging)
+		 * 2. JSP로 반환할 결과 JSON(obj) _ paging을 담고 있다.
 		*/
-		JSONObject obj = new JSONObject();
 		
 		JSONObject paging = new JSONObject();
 		paging.put("totalRecord", totalRecord);
+		paging.put("page", page);
+		paging.put("totalPage", totalPage);
+		paging.put("pagePerBlock", pagePerBlock);
+		paging.put("beginPage", beginPage);
+		paging.put("endPage", endPage);
+		
+		JSONObject obj = new JSONObject();
 		obj.put("paging", paging); 
 		// (결과 값) obj = { paging:{totalRecord..}, list={}, isSuccess="true"}  
 		
