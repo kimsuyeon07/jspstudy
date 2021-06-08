@@ -11,16 +11,21 @@ public class StudentDTO {
 	private char grade;
 	
 	// constructor
-	public StudentDTO() { super(); }
-	public StudentDTO(String sno, String name, int kor, int eng, int mat) {
+	public StudentDTO() { 
+		super(); 
+	}
+	public StudentDTO(String sno, String name, int kor, int eng, int mat, double ave, char grade) {
 		super();
 		this.sno = sno;
 		this.name = name;
 		this.kor = kor;
 		this.eng = eng;
 		this.mat = mat;
+		this.ave = ave;
+		this.grade = grade;
 	}
-	
+
+
 	// Getter and Setter
 	public String getSno() {
 		return sno;

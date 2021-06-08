@@ -8,4 +8,6 @@
 <typeInfo handle="=12_AJAX/D:\/SPRING0303\/install\/apache-tomcat-8.5.65\/lib\/catalina-tribes.jar=/owner.project.facets=/jst.web=/=/javadoc_location=/https:\/\/tomcat.apache.org\/tomcat-8.5-doc\/api\/=/&lt;org.apache.catalina.tribes(Member.class[Member" modifiers="1537" timestamp="1617078520000"/>
 <typeInfo handle="=13_AJAX/D:\/SPRING0303\/jspstudy\/workspace\/13_AJAX\/WebContent\/WEB-INF\/lib\/mybatis-3.5.2.jar&lt;org.apache.ibatis.ognl(MemberAccess.class[MemberAccess" modifiers="1537" timestamp="1622600209053"/>
 <typeInfo handle="=13_AJAX/src&lt;command{MemberCommand.java[MemberCommand" modifiers="513" timestamp="1623024959954"/>
+<typeInfo handle="=14_BATCH/src&lt;command{StudentCommand.java[StudentCommand" modifiers="513" timestamp="1623133669466"/>
+<typeInfo handle="=14_BATCH/D:\/SPRING0303\/jspstudy\/workspace\/14_BATCH\/WebContent\/WEB-INF\/lib\/quartz-2.3.0-SNAPSHOT.jar&lt;org.quartz(Job.class[Job" modifiers="1537" timestamp="1623120359222"/>
 </typeInfoHistroy>

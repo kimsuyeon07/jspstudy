@@ -34,5 +34,24 @@ public class StudentDAO {
 		return list;
 	}
 	
+	/* 회원 추가 */
+	public int insertStudent(StudentDTO dto) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.insert("dao.student.insertStudent", dto);
+		if (result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
+	
+	/* 성적우수자_3명 */
+	public List<StudentDTO> selectStudentGradeThree(){
+		SqlSession ss = factory.openSession();
+		List<StudentDTO> list = ss.selectList("dao.student.selectStudentGradeThree");
+		ss.close();
+		return list;
+	}
+	
 	
 }

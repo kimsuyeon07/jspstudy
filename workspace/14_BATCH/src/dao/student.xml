@@ -17,7 +17,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	 ORDER BY SNO
 	 </select>
 	 
+	 <!-- WHERE AVE < 60 (인식하지 못함 : 오류 _ 태그인 줄 알아;) -->
+	 <!-- 
+	 	<![CDATA[query]]>
+	 	query를 모두 문자열로 인식하시오.
+	 		: query에 안들어가는 경우  ▶ ▶  동적쿼리 작업할 때 <if test=""></if> 안 됨.
+	 		: <, >와 같은 연산자를 태그로 인식하므로 CDATA를 이용해서 문자열로 처리한다.
+	 		: ** 필요한 부분만 사용하는 것이 좋음! **
+	 <select id="selectStudentList" resultType="dto.StudentDTO">
+	 	
+	 	SELECT SNO, NAME, KOR, ENG, MAT, AVE, GRADE
+	 	  FROM STUDENT
+	 	 WHERE <![CDATA[AVE < 60]]>
+	 	 ORDER BY SNO
+	 	
+	 </select>
+	  -->
 	 
+	 <insert id="insertStudent" parameterType="dto.StudentDTO">
+	 	INSERT INTO STUDENT
+	 	VALUES (#{sno}, #{name}, ${kor}, ${eng}, ${mat}, ${ave}, #{grade})
+	 </insert>
+	 
+	 
+	 <!-- 성적 우수자 3명 -->
+	 <select id="selectStudentGradeThree" resultType="dto.StudentDTO">
+	 	SELECT ROWNUM, A.SNO, A.NAME, A.KOR, A.ENG, A.MAT, A.AVE, A.GRADE
+  		  FROM (SELECT SNO, NAME, KOR, ENG, MAT, AVE, GRADE
+          		  FROM STUDENT
+				 ORDER BY AVE DESC) A 
+ 		  WHERE <![CDATA[ROWNUM < 4]]>
+	 </select>
 	
 	
 

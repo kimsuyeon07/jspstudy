@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import command.InsertStudentCommand;
 import command.SelectStudentListCommand;
 import command.StudentCommand;
 
@@ -30,11 +31,15 @@ public class StudentController extends HttpServlet {
 		// cmd
 		String[] arr = request.getRequestURI().split("/");
 		String cmd = arr[arr.length -1];
+		
 		// StudentCommand
 		StudentCommand command = null;
 		switch (cmd) {
 		case "selectStudentList.do":
 			command = new SelectStudentListCommand();
+			break;
+		case "insertStudent.do":
+			command = new InsertStudentCommand();
 			break;
 		}
 		

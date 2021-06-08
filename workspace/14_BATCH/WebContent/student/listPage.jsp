@@ -8,7 +8,16 @@
 	<title>Student_List_Page</title>
 </head>
 <body>
-
+	<h1>학생 추가하기</h1>
+	<form action="/14_BATCH/insertStudent.do">
+		<input type="text" name="sno" id="sno" placeholder="SNO" autofocus> &nbsp;
+		<input type="text" name="name" id="name" placeholder="NAME"> &nbsp;
+		<input type="text" name="kor" id="kor" placeholder="KOR"> &nbsp;
+		<input type="text" name="eng" id="eng" placeholder="ENG"> &nbsp;
+		<input type="text" name="mat" id="mat" placeholder="MAT"> &nbsp;
+		<button>등록</button>
+	</form>
+	<hr>
 	<h1>학생 목록 보기</h1>
 	<table border="1">
 		<thead>
@@ -44,6 +53,9 @@
 			</c:if>
 		</tbody>
 	</table>
+	
+	
+	
 	
 </body>
 </html>
