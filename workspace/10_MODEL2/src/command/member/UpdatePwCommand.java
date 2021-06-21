@@ -27,7 +27,7 @@ public class UpdatePwCommand implements MemberCommand {
 		dto.setPw(pw);
 		dto.setNo(loginDTO.getNo());
 		
-		// DAO의 uudatePw() 메소드 호출
+		// DAO의 updatePw() 메소드 호출
 		int result = MemberDAO.getInstance().updatePw(dto);
 		
 		try {
