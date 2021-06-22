@@ -2,6 +2,7 @@ package command;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,12 +66,16 @@ public class InsertPersonCommand extends HttpServlet {
 			// 나이 : 유효범위를 벗어난 숫자일 경우, "강제로 예외를 발생"시켰다.
 			response.setStatus(3002);
 			response.getWriter().println("나이는 0 ~ 100 사이의 정수로만 입력 가능합니다.");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// 주민등록번호 : 동일한 값을 입력하는 경우
+			response.setStatus(3003);
+			response.getWriter().println("동일한 주민등록번호는 입력할 수 없습니다.");
 		} catch (SQLException e) { 
 			// ※  PersonDAO의 insertPerson( )에 throws 처리하여 해당 Command에서 처리한다 
 			// ↓
 			// 주민등록번호는 "6자리"만 받을 수밖에 없다. (정규식확인)때문에
 			// 이름, 생일 : 칼럼의 크기보다 길이가 긴 값이 입력됨
-			response.setStatus(3003);
+			response.setStatus(3004);
 			response.getWriter().println("입력 데이터의 길이를 확인하세요.");
 		}
 		

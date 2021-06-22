@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class PersonDAO {
 		List<Person> list = new ArrayList<Person>();
 		try {
 			con = getConnection();
-			sql = "SELECT SNO, NAME, AGE, BIRTHDAT, REGDATE FROM PERSON" ;
+			sql = "SELECT SNO, NAME, AGE, BIRTHDAY, REGDATE FROM PERSON" ;
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -83,13 +84,13 @@ public class PersonDAO {
 	}
 	
 	/* 2. 한 사람 목록 */
-	public Person selectPersonByNo(long no) {
+	public Person selectPersonBySno(String sno) {
 		Person person = null;
 		try {
 			con = getConnection();
-			sql = "SELECT SNO, NAME, AGE, BIRTHDAY, REGDATE FROM PERSON WHERE NO = ?";
+			sql = "SELECT SNO, NAME, AGE, BIRTHDAY, REGDATE FROM PERSON WHERE SNO = ?";
 			ps = con.prepareStatement(sql);
-			ps.setLong(1, no);
+			ps.setString(1, sno);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				person = new Person();
@@ -108,7 +109,10 @@ public class PersonDAO {
 	}
 	
 	/* 3. 사람 추가 */
-	public int insertPerson(Person person) throws SQLException {
+		// SQLException > SQLIntegrityConstraintViolationException 
+		// (안에 속해있다.    ▶▶   이를 분리해서 예외처리하겠다!!)
+		// SQLIntegrityConstraintViolationException : 중복된 값 예외처리
+	public int insertPerson(Person person) throws SQLIntegrityConstraintViolationException, SQLException {
 		int count = 0;
 		// try문을 사용하지 않고_ throws SQLException으로 java에 알아서 오류를 던지도록 작업
 		con = getConnection();
@@ -125,7 +129,22 @@ public class PersonDAO {
 	}
 	
 	
-	
+	/* 4. 사람 삭제 */
+	public int deletePerson(String sno) {
+		int count = 0;
+		try {
+			con = getConnection();
+			sql = "DELETE FROM PERSON WHERE SNO = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, sno);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+		return count;
+	}
 	
 	
 	
